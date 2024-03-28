@@ -19,6 +19,11 @@ public class RigidbodyMover : MonoBehaviour
 
     void Update()
     {
+
+    }
+
+    private void FixedUpdate()
+    {
         if (Input.GetKeyDown(KeyCode.Space))
         {
             rb.AddForce(force, mode);

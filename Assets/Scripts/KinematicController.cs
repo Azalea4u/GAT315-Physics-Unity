@@ -16,7 +16,7 @@ public class KinematicController : MonoBehaviour
         {
             direction.x = Input.GetAxis("Horizontal");
         }
-        else
+        else if (space == Space.Self)
         {
             rotation = Input.GetAxis("Horizontal");
         }
@@ -25,9 +25,18 @@ public class KinematicController : MonoBehaviour
         direction = Vector3.ClampMagnitude(direction, 1);
 
         transform.rotation *= Quaternion.Euler(0, rotation * speed, 0);
-        //direction = transform.rotation * direction;
-
         transform.Translate(direction * speed * Time.deltaTime, space);
-        //transform.position += direction * speed * Time.deltaTime;
+    }
+
+    //RBG
+    //XYZ
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;                             // R
+        Gizmos.DrawRay(transform.position, transform.right);  // X
+        Gizmos.color = Color.blue;                               // B
+        Gizmos.DrawRay(transform.position, transform.forward);   // Y
+        Gizmos.color = Color.green;                                 // G
+        Gizmos.DrawRay(transform.position, transform.up);           // Z
     }
 }
