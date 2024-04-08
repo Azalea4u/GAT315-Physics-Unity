@@ -1,12 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Block : MonoBehaviour
 {
-    [SerializeField] int points = 100;
     [SerializeField] AudioSource audioSource;
+    [SerializeField] TMP_Text pointsUI;
+
+    public int points;
+
+    public int Points 
+    { 
+        get { return points; }
+        set
+        {
+            points = value;
+            pointsUI.text = "Points: " + points.ToString();
+        }
+    }
     
     Rigidbody rb;
     bool destroyed = false;
@@ -31,7 +45,7 @@ public class Block : MonoBehaviour
             && rb.angularVelocity.magnitude == 0)
         {
             destroyed = true;
-            print(points);
+            Points += 100;
             Destroy(gameObject);
         }
     }
