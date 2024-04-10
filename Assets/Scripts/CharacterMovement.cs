@@ -6,9 +6,11 @@ using UnityEngine;
 public class CharacterMovement : MonoBehaviour
 {
     [SerializeField, Range(1, 10)] float speed = 2;
+    [SerializeField, Range(1, 10)] float rotateSpeed = 2;
     [SerializeField, Range(1, 10)] float jumpHeight = 2;
     [SerializeField, Range(1, 10)] float pushPower = 2.0f;
     [SerializeField] Transform view;
+    [SerializeField] Animator animator;
 
     private CharacterController controller;
     private Vector3 velocity;
@@ -48,6 +50,17 @@ public class CharacterMovement : MonoBehaviour
 
         velocity.y += Physics.gravity.y * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            animator.SetBool("Equipped", !animator.GetBool("Equipped"));
+        }
+
+        // animations
+        animator.SetFloat("Speed", move.magnitude * speed);
+        animator.SetFloat("YVelocity", velocity.y);
+        animator.SetBool("OnGround", onGround);
+
     }
 
     void OnControllerColliderHit(ControllerColliderHit hit)
