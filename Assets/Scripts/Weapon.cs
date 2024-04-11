@@ -8,11 +8,15 @@ public class Weapon : MonoBehaviour
     [SerializeField] Transform emission;
     [SerializeField] AudioSource audioSource;
 
+    public bool equipped = false;
+
     void Update()
     {
-        if (Input.GetButtonDown("Fire1") || Input.GetMouseButtonDown(0) ||Input.GetKeyDown(KeyCode.Space))
+        Debug.DrawRay(emission.position, emission.forward * 10, Color.red);
+
+        if (equipped && Input.GetMouseButtonDown(0))
         {
-            audioSource.Play();
+            if (audioSource != null) audioSource.Play();
             Instantiate(ammo, emission.position, emission.rotation);
         }
     }
